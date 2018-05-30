@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import HelloWorld from '@components/public/HelloWorld'
+import { HelloWorld } from '@components'
 
-class Index extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props)
   }
@@ -14,5 +14,3 @@ class Index extends Component {
     )
   }
 }
-
-export default Index
