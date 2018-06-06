@@ -1,11 +1,12 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.join(__dirname, '/dist'),
     filename: '[name][hash].js',
-    chunkFilename: '[name].[id].js'
+    chunkFilename: '[name][id][hash].js'
   },
   module: {
     rules: [
@@ -29,10 +30,10 @@ module.exports = {
       },
       {
         test: /\.css?$/,
+        include: /src/,
+        exclude: /node_modules/,
         use: [
-          {
-            loader: 'style-loader'
-          },
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader'
           },
@@ -85,6 +86,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name][id][hash].css'
     })
   ],
   resolve: { // 配置路径别名

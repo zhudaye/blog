@@ -25,6 +25,7 @@ function createEnv(path, opts) {
 
 var env = createEnv('views', {
   watch: true,
+  noCache: true,
   autoescape: false,
   filters: {
     hex: function (n) {
