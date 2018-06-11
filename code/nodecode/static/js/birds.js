@@ -252,7 +252,7 @@ var Boid = function () {
 
     for ( var i = 0, il = boids.length; i < il; i ++ ) {
 
-      if ( Math.random() > 0.6 ) continue;
+      if ( Math.random() > 0.1 ) continue;
 
       var boid = boids[ i ];
       var distance = boid.position.distanceTo( this.position );
@@ -330,7 +330,7 @@ var SCREEN_WIDTH = document.getElementById('bg').offsetWidth,
 
   function init() {
 
-    camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
+    camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 1000 );
     camera.position.z = 450;
 
     scene = new THREE.Scene();
@@ -338,7 +338,7 @@ var SCREEN_WIDTH = document.getElementById('bg').offsetWidth,
     birds = [];
     boids = [];
 
-    for ( var i = 0; i < 40; i ++ ) {
+    for ( var i = 0; i < 150; i ++ ) {
 
       boid = boids[ i ] = new Boid();
       boid.position.x = Math.random() * 400 - 200;

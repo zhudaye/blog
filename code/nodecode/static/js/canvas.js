@@ -17,7 +17,7 @@ function Star(id, x, y){
 	this.id = id;
 	this.x = x;
 	this.y = y;
-	this.r = Math.floor(Math.random()*2)+1;
+	this.r = Math.floor(Math.random()* WIDTH / 500)+1;
 	var alpha = (Math.floor(Math.random()*10)+1)/10/2;
 	this.color = "rgba(255,255,255,"+alpha+")";
 }
@@ -47,7 +47,7 @@ function Dot(id, x, y, r) {
 	this.id = id;
 	this.x = x;
 	this.y = y;
-	this.r = Math.floor(Math.random()*5)+1;
+	this.r = Math.floor(Math.random()* WIDTH / 400)+1;
 	this.maxLinks = 2;
 	this.speed = .5;
 	this.a = .5;

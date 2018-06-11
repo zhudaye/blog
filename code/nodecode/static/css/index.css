@@ -96,7 +96,7 @@ li {
   height:100%;
   z-index: 100;
   background-image:url('../img/xkbg.png');
-	background-size:1000px 250px;
+	background-size: auto 50%;
 	background-repeat:repeat-x;
 	background-position:center bottom;
 }
@@ -328,5 +328,9 @@ li {
 
   .nav {
     display: none;
+  }
+  
+  .landscape {
+    background-size: auto 40%;
   }
 }

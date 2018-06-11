@@ -8,6 +8,10 @@ router.get('/', (ctx) => {
   ctx.body = nunjucks.render('index.html')
 })
 
+router.get('/timeline', (ctx) => {
+  ctx.body = nunjucks.render('timeline.html')
+})
+
 router.get('/articles/:type/:id', async ctx => {
   let rendered = await render(ctx, {
     content: '人生苦短，我选择vue~'
