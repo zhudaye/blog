@@ -140,7 +140,7 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-window.onmousemove = function(e){
+document.getElementById('bg').onmousemove = function(e){
 	mouseMoving = true;
 	mouseX = e.clientX;
 	mouseY = e.clientY;

@@ -26,16 +26,11 @@ li {
   background:linear-gradient(to bottom,#000000 0%,#5788fe 100%);
 }
 
-#font {
+#bg canvas {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 1000;
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .filter {
@@ -43,7 +38,7 @@ li {
 	height:100%;
 	position:absolute;
 	top:0;
-	left:0;
+  left:0;
 	background:#fe5757;
 	animation:colorChange 30s ease-in-out infinite;
 	animation-fill-mode:both;
@@ -98,7 +93,8 @@ li {
 	bottom:0px;
 	left:0;
 	width:100%;
-	height:100%;
+  height:100%;
+  z-index: 100;
   background-image:url('../img/xkbg.png');
 	background-size:1000px 250px;
 	background-repeat:repeat-x;
@@ -203,6 +199,10 @@ li {
   font-size: 20px;
   padding-bottom: 5px;
   font-weight: bold;
+  width: 50%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .one-des {
@@ -311,4 +311,22 @@ li {
 
 .center img {
   width: 100%;
+}
+
+@media screen and (max-width: 768px){
+  .one-des, .one-title {
+    width: 100%;
+  }
+
+  .artice-list {
+    padding-top: 0;
+  }
+
+  .one-list {
+    margin-top: 10px;
+  }
+
+  .nav {
+    display: none;
+  }
 }

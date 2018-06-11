@@ -6,9 +6,6 @@ let router = new Router();
 
 router.get('/', (ctx) => {
   ctx.body = nunjucks.render('index.html')
-},
-ctx => {
-  console.log(ctx.body);
 })
 
 router.get('/articles/:type/:id', async ctx => {
