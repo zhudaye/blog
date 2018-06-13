@@ -5,140 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>时间轴</title>
-  <link rel="stylesheet" href="../../css/timeline/timeline.css">
-  <link rel="stylesheet" href="../../css/timeline/themes/mytheme.css">
-  <style>
-    html, body {
-        width: 100%;
-        height:100%;
-        padding: 0px;
-        margin: 0px;
-    }
-    #timeline-embed {
-        height: 100%;
-    }
-    </style>
+  <script src="../../js/jquery.js"></script>
+  <script src="../../js/timeline/timeline-story.js"></script>
+  <script src="../../js/timeline/json.js"></script>
+  <script>
+    $(document).ready(function() {
+     
+      createStoryJS({
+        type:		'timeline',
+        width:		$(window).width(),
+        height:		$(window).height(),
+        source:		json,
+        embed_id:	'timeline-embed',
+        debug:		false
+      });
+
+      $(window).resize(function () {
+        createStoryJS({
+          type:	'timeline',
+          width: $(window).width(),
+          height:	$(window).height(),
+          source:	json,
+          embed_id:	'timeline-embed',
+          debug: false
+        });
+        window.location.reload();
+      })
+    });
+  </script>
 </head>
 <body>
+  <style>
+      html, body {
+        padding: 0px;
+        margin: 0px;
+      }
+  
+      .vco-slider .slider-item .content .content-container .media .media-wrapper .media-container .media-frame, .vco-slider .slider-item .content .content-container .media .media-wrapper .media-container .media-image img {
+        border: none;
+        box-shadow: 0 1px 10px 0 rgba(0,0,0,0.2);
+      }
+    </style>
   <div id="timeline-embed"></div>
-  <script src="../../js/timeline/timeline-min.js"></script>
-  <script>
-    var json = {
-    "events": [
-      {
-        "media": {
-          "url": "http://www.agent-zs.com/img/dcgs.jpg",
-          "caption": "",
-          "credit": ""
-        },
-        "start_date": {
-          "month": "6",
-          "day": "12",
-          "year": "2018"
-        },
-        "text": {
-          "headline": "打成共识打成共识<br/> 2018-2019",
-          "text": "<p>把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫</p>"
-        }
-      },
-      {
-        "media": {
-          "url": "http://www.agent-zs.com/img/dcgs.jpg",
-          "caption": "",
-          "credit": ""
-        },
-        "start_date": {
-          "year": "2017"
-        },
-        "text": {
-          "headline": "打成共识打成共识<br/> 2018-2019",
-          "text": "<p>把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫</p>"
-        }
-      },
-      {
-        "media": {
-          "url": "http://www.agent-zs.com/img/dcgs.jpg",
-          "caption": "",
-          "credit": ""
-        },
-        "start_date": {
-          "year": "2016"
-        },
-        "text": {
-          "headline": "打成共识打成共识<br/> 2018-2019",
-          "text": "<p>把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫</p>"
-        }
-      },
-      {
-        "media": {
-          "url": "http://www.agent-zs.com/img/dcgs.jpg",
-          "caption": "",
-          "credit": ""
-        },
-        "start_date": {
-          "year": "2016"
-        },
-        "text": {
-          "headline": "打成共识打成共识<br/> 2018-2019",
-          "text": "<p>把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫</p>"
-        }
-      },
-      {
-        "media": {
-          "url": "http://www.agent-zs.com/img/dcgs.jpg",
-          "caption": "",
-          "credit": ""
-        },
-        "start_date": {
-          "year": "2016"
-        },
-        "text": {
-          "headline": "打成共识打成共识<br/> 2018-2019",
-          "text": "<p>把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫</p>"
-        }
-      },
-      {
-        "media": {
-          "url": "http://www.agent-zs.com/img/dcgs.jpg",
-          "caption": "",
-          "credit": ""
-        },
-        "start_date": {
-          "month": "6",
-          "day": "12",
-          "year": "2016"
-        },
-        "text": {
-          "headline": "打成共识打成共识<br/> 2018-2019",
-          "text": "<p>把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫把你打的喵喵叫</p>"
-        }
-      },
-      {
-        "media": {
-          "url": "http://www.agent-zs.com/img/dcgs.jpg",
-          "caption": "",
-          "credit": ""
-        },
-        "start_date": {
-          "month": "6",
-          "day": "23",
-          "year": "2016"
-        },
-        "text": {
-          "headline": "get busy living or get busy dying<br/> 2016-2017",
-          "text": "<p>These walls are kind of funny like that. First you hate them, then you get used to them. Enough time passed, get so you depend on them. That's institution alized.</p>"
-        }
-      },
-    ]
-}
-  var additionalOptions = {
-    start_at_end: true,
-    default_bg_color: {r: 255, g:255, b:255},
-    timenav_height: 240,
-  }
-  var timeline = new TL.Timeline('timeline-embed',
-    json,
-    additionalOptions)
-  </script>
 </body>
 </html>
