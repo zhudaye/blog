@@ -143,7 +143,7 @@ function animate() {
 document.getElementById('bg').onmousemove = function(e){
 	mouseMoving = true;
 	mouseX = e.clientX;
-	mouseY = e.clientY;
+	mouseY = e.clientY + document.documentElement.scrollTop || document.body.scrollTop;
 	clearInterval(mouseMoveChecker);
 	mouseMoveChecker = setTimeout(function() {
 		mouseMoving = false;

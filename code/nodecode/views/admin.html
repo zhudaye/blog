@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>后台管理</title>
+</head>
+<body>
+  <form class="form-box" id="formData" enctype="multipart/form-data">
+    <div class="input-box">
+      <label>标题</label>
+      <input  id="title" type="text" name="title" placeholder="请输入文章标题"/>
+    </div>
+    <div class="input-box">
+      <label>描述</label>
+      <textarea id="des" name="des" placeholder="请输入文章描述"></textarea>
+    </div>
+    <div class="input-box">
+      <label>类型</label>
+      <select name="type" id="type">
+        <option value="1">技术</option>
+        <option value="2">记一件小事</option>
+        <option value="3">小说</option>
+      </select>
+    </div>
+    <div class="input-box">
+      <label>文件</label>
+      <input id="file" type="file" name="file" accept="*.md"/>
+    </div>
+  </form>
+  <div class="input-box">
+    <button id="button">提交</button>
+    <button id="post">post</button>
+  </div>
+  <script src="../../js/jquery.js"></script>
+  <script>
+    $(function(){
+        
+        $("#button").on('click', function() {
+          var file = $('#file').prop('files')[0];
+          if (!file || !(/\.md$/i).test(file.name)) {
+            alert('请上传markdown文件');
+            return
+          }
+          var formData = new FormData($('#formData')[0]);
+          formData.append('fileName', file.name);
+          $.ajax({
+            method: 'POST',
+            url: 'http://localhost:3000/api/articles/addArticle',
+            data: formData,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function(res) {
+              console.log(res)
+            },
+            error: function(e) {
+              console.log(e)
+            }
+          })
+        })
+
+        $('#post').on('click', function(e){
+          $.ajax({
+            type: 'post',
+            url: 'http://localhost:3000/api/ceshi',
+            data: {
+              title: 'zhudaye'
+            },
+            dataType: 'json',
+            success: function(res) {
+              console.log(res)
+            },
+            error: function(e) {
+              console.log(e)
+            }
+          })
+        })
+    })
+  </script>
+</body>
+</html>

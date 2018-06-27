@@ -4,7 +4,7 @@ const nunjucks = require('../nunjucks');
 const path = require('path');
 module.exports = async function (ctx, option) {
   let conent = await new Promise((resolve, reject) => {
-    fs.readFile(`${__dirname}/../public/articles/${ctx.params.type}/${ctx.params.id}.md`, function(err, data) {
+    fs.readFile(`${__dirname}/../public/articles/${ctx.params.type}/${ctx.params.id}`, function(err, data) {
       if (err) {
         reject(false)
       } else {

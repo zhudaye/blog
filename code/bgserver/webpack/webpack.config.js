@@ -1,10 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // 抽离css
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // 压缩打包文件
+const CleanWebpackPlugin = require('clean-webpack-plugin');// 清除dist
 module.exports = {
-  entry: ['babel-polyfill', './src/index.js'],
+  devtool: 'inline-source-map',
+  entry: ['babel-polyfill', '../src/index.js'],
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: './',
     filename: '[name][hash].js',
     chunkFilename: '[name][id][hash].js'
   },
@@ -31,15 +35,17 @@ module.exports = {
       {
         test: /\.css?$/,
         include: /src/,
-        exclude: /node_modules/,
         use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader'
+          { 
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it use publicPath in webpackOptions.output
+              publicPath: '../'
+            }
           },
-          {
-            loader: 'postcss-loader'
-          }
+          'css-loader',
+          'postcss-loader'         
         ]
       },
       {
@@ -84,24 +90,21 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }),
     new MiniCssExtractPlugin({
-      filename: '[name][id][hash].css'
+      filename: "[name].css",
+    }),
+    new CleanWebpackPlugin(['dist']),
+    new UglifyJsPlugin(),
+    new HtmlWebpackPlugin({
+      template: '../src/index.html'
     })
   ],
   resolve: { // 配置路径别名
     alias: {
-      '@src': path.resolve(__dirname, 'src/'),
-      '@components': path.resolve(__dirname, 'src/components/'),
-      '@assets': path.resolve(__dirname, 'src/assets/'),
-      '@containers': path.resolve(__dirname, 'src/containers/')
+      '@src': path.resolve(__dirname, '../src/'),
+      '@components': path.resolve(__dirname, '../src/components/'),
+      '@assets': path.resolve(__dirname, '../src/assets/'),
+      '@containers': path.resolve(__dirname, '../src/containers/')
     }
-  },
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000
   }
 }

@@ -5,7 +5,7 @@ export default class HelloWorld extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: 'zhudaye'
+      name: 'fuck you'
     }
     this.setName = this.setName.bind(this)
   }
