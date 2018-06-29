@@ -45,6 +45,7 @@
           }
           var formData = new FormData($('#formData')[0]);
           formData.append('fileName', file.name);
+          formData.append('userId', 2);
           $.ajax({
             method: 'POST',
             url: 'http://localhost:3000/api/articles/addArticle',
@@ -63,8 +64,8 @@
 
         $('#post').on('click', function(e){
           $.ajax({
-            type: 'post',
-            url: 'http://localhost:3000/api/ceshi',
+            type: 'get',
+            url: 'http://localhost:3000/api/articles/findArticle',
             data: {
               title: 'zhudaye'
             },

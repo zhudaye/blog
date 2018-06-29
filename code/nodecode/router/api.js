@@ -1,12 +1,15 @@
-const { addArticle } = require('../controllers/articles/articles_fuc');
+const { addArticle, findArticle } = require('../controllers/articles/articles_fuc');
 const Router = require('koa-router');
-const formidable = require('formidable');
 let api = new Router();
-let form = new formidable.IncomingForm();
 
 api.post('/articles/addArticle', async ctx => {
   let msg = await addArticle(ctx);
-  ctx.body = { msg: msg }
+  ctx.body = msg;
+})
+
+api.get('/articles/findArticle', async ctx => {
+  let msg = await findArticle(ctx);
+  ctx.body = msg
 })
 
 api.post('/ceshi', async ctx => {

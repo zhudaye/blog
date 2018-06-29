@@ -1,8 +1,35 @@
-const { findArticle, createArticle, deleteArticle, updateUser } = require('./atticles');
+const article = require('./atticles');
 const fs = require('fs');
 const path = require('path');
 const formidable = require('formidable');
 const form = new formidable.IncomingForm();
+
+/**
+ *读文件
+ *
+ *   @param { string } url, and
+ * }
+ * 
+ * @returns
+ */
+const readFile = url => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(url, (err, data) => {
+      if (err) {
+        reject({
+          status: false,
+          msg: '读文件' + err
+        })
+      }
+      resolve({
+        status: true,
+        msg: data
+      })
+    })
+  }).catch(e => {
+    return e
+  })
+}
 
 /**
  *写文件
@@ -15,25 +42,32 @@ const form = new formidable.IncomingForm();
  * 
  * @returns
  */
-const writeFile = option => {
-  console.log(option)
+const writeFile = async option => {
+  let file = await readFile(option.data.file.path);
   return new Promise((resolve, reject) => {
-    fs.writeFile(option.fileName, option.data, err => {
+    !file.status && reject(file)
+
+    fs.writeFile(option.fileName, file.msg, err => {
       if (err) {
-        console.log(err)
-        reject(false)
+        reject({
+          status: false,
+          msg: '写文件' + err
+        })
       }
-      resolve(true)
+      resolve({
+        status: true,
+        msg: '文件写入成功'
+      })
     })
   }).catch(e => {
-    console.log(e)
+    return e
   })
 }
 
 /**
  *类型映射
  *
- * @param { object } type
+ * @param { number } type
  * 
  * @returns
  */
@@ -53,7 +87,10 @@ const addArticle = async ctx => {
   return new Promise((resolve, reject) => {
     form.parse(ctx.req, async (err, fields, files) => {
       if (err) {
-        reject(false)
+        reject({
+          status: 301,
+          msg: '数据解析失败，请上传formData数据'
+        })
       }
       
       let url = `/${typeMap(+fields.type)}/${fields.fileName}`;
@@ -62,28 +99,64 @@ const addArticle = async ctx => {
         fileName: `./public/articles${url}`,
         data: files
       })
-  
-      if (writeMd) {
-        let created = await createArticle ({
-          article_title: fields.title,
-          article_type: +fields.type,
-          article_url: url,
-          article_des: fields.des
-        })
 
-        if (created) {
-          resolve(true)
-        }
-      }
+      ;!writeMd.status && reject({
+        status: 500,
+        msg: writeMd.msg
+      })
+      
+      // 文件写入成功后，记录到数据库
+      let created = await article.createArticle ({
+        user_id: +fields.userId,
+        article_title: fields.title,
+        article_type: +fields.type,
+        article_url: url,
+        article_des: fields.des
+      })
 
-      reject(false)
+      ;(created.status && created.isIn) && resolve({
+        status: 300,
+        msg: '文章已存在!'
+      })
+
+      ;!created.status && reject({
+        status: 300,
+        msg: '文章添加失败!'
+      })
+
+      resolve({
+        status: 200,
+        msg: '文章添加成功!'
+      })
     });
   }).catch(e => {
+    return e
+  })
+}
+
+// 查找文章
+const findArticle = async ctx => {
+  console.log(ctx.query);
+  let articles = await article.findArticle({});
+  return new Promise((resolve, reject) => {
+    ;!articles.status && reject({
+      status: 500,
+      msg: articles.msg
+    })
+
+    resolve({
+      status: 200,
+      msg: '获取数据成功!',
+      data: articles.data
+    })
+  }).catch(e => {
     console.log(e);
+    return e
   })
 }
 
 module.exports = {
-  addArticle
+  addArticle,
+  findArticle
 }
 

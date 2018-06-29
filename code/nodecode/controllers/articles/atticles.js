@@ -9,6 +9,10 @@ const Articles = sequelize.define('article', { // 映射用户表
     type: Sequelize.INTEGER, // 1：技术；2：记一件小事；3：小说
     allowNull: false
   },
+  user_id: {
+    type: Sequelize.INTEGER(20).UNSIGNED,
+    allowNull: false
+  },
   article_read: {
     type: Sequelize.INTEGER
   },
@@ -51,18 +55,32 @@ const createArticle = function(option) {
   return new Promise((resolve, reject) => {
     let date = new Date().getTime()
     Articles.findOrCreate({
-      where: option,
+      where: {
+        user_id: option.user_id,
+        article_url: option.article_url
+      },
       defaults: {
-        create_time: date
+        article_title: option.article_title,
+        article_type:  option.article_type,
+        article_des:  option.article_des,
+        create_time: date,
+        update_time: date
       }
     }).spread((article, created) => {
       resolve({
+        status: true,
         data: article,
-        isIn: created
+        isIn: !created
+      })
+    }).catch(err => {
+      reject({
+        status: false,
+        msg: '文章写入数据库失败' + err
       })
     })
   }).catch(e => {
-    console.log(e);
+    console.log(e)
+    return e
   })
 }
 
@@ -82,10 +100,19 @@ const createArticle = function(option) {
 const findArticle = function(option) {
   return new Promise((resolve, reject) => {
     Articles.findAndCountAll(option).then(result => {
-      resolve(result)
+      resolve({
+        status: true,
+        data: result
+      })
+    }).catch(err => {
+      reject({
+        status: false,
+        msg: '文章数据库读取失败' + err
+      })
     })
   }).catch(e => {
-    console.log(e);
+    console.log(e)
+    return e
   })
 }
 
@@ -116,6 +143,7 @@ const updateUser = function(option) {
     })
   }).catch(e => {
     console.log(e);
+    return e
   })
 }
 
@@ -147,6 +175,7 @@ const deleteArticle = function(option) {
     })
   }).catch(e => {
     console.log(e);
+    return e
   })
 }
 
