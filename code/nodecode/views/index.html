@@ -35,7 +35,7 @@
         <li class="one-list">
           <div class="tag">tec</div>
           <div class="one-title">react牛比牛比牛比牛比vue是最好的前端框架~不服来干---biubiubiubiu</div>
-          <a href="http://localhost:3000/articles/technologys/1" class="one-des">
+          <a href="http://localhost:3000/articles/technologys/1.md" class="one-des">
            vue是最好的前端框架~不服来干---biubiubiubiu
           </a>
           <div class="other-info">
@@ -55,75 +55,33 @@
             </div>
           </div>
         </li>
+        {% for item in articleList %}
         <li class="one-list">
           <div class="tag">tec</div>
-          <div class="one-title">react</div>
-          <a href="http://www.agent-zs.com/articles/technologys/1" class="one-des">
-           vue是最好的前端框架~不服来干---biubiubiubiu
+          <div class="one-title">{{item.article_title}}</div>
+          <a class="one-des" href="{{url}}/articles{{item.article_url}}">
+           {{item.article_des}}
           </a>
           <div class="other-info">
             <div>
-              2018.01.30
+              {{item.update_time | timeFormat}}
             </div>
             <div class="other-count">
               <span>
-                阅读量: 0
+                阅读量: {{item.article_read}}
               </span>
               <span>
-                喜欢: 0
+                喜欢: {{item.article_like}}
               </span>
-              <span>
-                吐槽: 0
-              </span>
+              <!-- <span>
+                吐槽: {{item.article_read}}
+              </span> -->
             </div>
           </div>
         </li>
-        <li class="one-list">
-          <div class="tag">tec</div>
-          <div class="one-title">react</div>
-          <a href="http://www.agent-zs.com/articles/technologys/1" class="one-des">
-           vue是最好的前端框架~不服来干---biubiubiubiu
-          </a>
-          <div class="other-info">
-            <div>
-              2018.01.30
-            </div>
-            <div class="other-count">
-              <span>
-                阅读量: 0
-              </span>
-              <span>
-                喜欢: 0
-              </span>
-              <span>
-                吐槽: 0
-              </span>
-            </div>
-          </div>
-        </li>
-        <li class="one-list">
-          <div class="tag">tec</div>
-          <div class="one-title">react</div>
-          <a href="http://www.agent-zs.com/articles/technologys/1" class="one-des">
-           vue是最好的前端框架~不服来干---biubiubiubiuvue是最好的前端框架~不服来干---biubiubiubiuvue是最好的前端框架~不服来干---biubiubiubiuvue是最好的前端框架~不服来干---biubiubiubiuvue是最好的前端框架~不服来干---biubiubiubiuvue是最好的前端框架~不服来干---biubiubiubiu
-          </a>
-          <div class="other-info">
-            <div>
-              2018.01.30
-            </div>
-            <div class="other-count">
-              <span>
-                阅读量: 0
-              </span>
-              <span>
-                喜欢: 0
-              </span>
-              <span>
-                吐槽: 0
-              </span>
-            </div>
-          </div>
-        </li>
+        {% else %}
+        <li>没有文章，你真懒</li>
+        {% endfor %}
       </ul>
     </div>
   </div>

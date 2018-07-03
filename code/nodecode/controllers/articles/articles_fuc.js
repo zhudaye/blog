@@ -27,6 +27,7 @@ const readFile = url => {
       })
     })
   }).catch(e => {
+    console.log(e)
     return e
   })
 }
@@ -60,6 +61,7 @@ const writeFile = async option => {
       })
     })
   }).catch(e => {
+    console.log(e)
     return e
   })
 }
@@ -130,14 +132,14 @@ const addArticle = async ctx => {
       })
     });
   }).catch(e => {
+    console.log(e)
     return e
   })
 }
 
 // 查找文章
 const findArticle = async ctx => {
-  console.log(ctx.query);
-  let articles = await article.findArticle({});
+  let articles = await article.findArticle(ctx.query);
   return new Promise((resolve, reject) => {
     ;!articles.status && reject({
       status: 500,
@@ -147,7 +149,12 @@ const findArticle = async ctx => {
     resolve({
       status: 200,
       msg: '获取数据成功!',
-      data: articles.data
+      data: {
+        list: articles.data.rows,
+        count: articles.data.count,
+        page: +ctx.query.page,
+        pageSize: +ctx.query.pageSize
+      }
     })
   }).catch(e => {
     console.log(e);

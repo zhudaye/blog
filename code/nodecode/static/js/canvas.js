@@ -17,7 +17,7 @@ function Star(id, x, y){
 	this.id = id;
 	this.x = x;
 	this.y = y;
-	this.r = Math.floor(Math.random()* WIDTH / 500)+1;
+	this.r = Math.floor(Math.random()* WIDTH / 600)+1;
 	var alpha = (Math.floor(Math.random()*10)+1)/10/2;
 	this.color = "rgba(255,255,255,"+alpha+")";
 }

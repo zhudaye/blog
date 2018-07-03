@@ -30,6 +30,7 @@ li {
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 99;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -96,7 +97,7 @@ li {
   height:100%;
   z-index: 100;
   background-image:url('../img/xkbg.png');
-	background-size: auto 50%;
+	background-size: auto 55%;
 	background-repeat:repeat-x;
 	background-position:center bottom;
 }
@@ -169,6 +170,8 @@ li {
 }
 
 .content {
+  position: relative;
+  z-index: 100;
   width:100%;
 }
 

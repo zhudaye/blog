@@ -1,11 +1,14 @@
 const Router = require('koa-router');
 const nunjucks = require('../nunjucks');
+const articlesFuc = require('../controllers/articles/atticles');
 const render = require('./render');
 let router = new Router();
 let url = 'http://localhost:3000';
 
-router.get('', (ctx) => {
+router.get('', async ctx => {
+  let myArticles = await articlesFuc.findArticle({ userId: 2 });
   ctx.body = nunjucks.render('index.html', {
+    articleList: myArticles.status ? myArticles.data.rows : [],
     url: url
   })
 })

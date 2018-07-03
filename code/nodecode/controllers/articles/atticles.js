@@ -37,6 +37,8 @@ const Articles = sequelize.define('article', { // 映射用户表
   timestamps: false
 })
 
+let Op = Sequelize.Op
+
 /**
  * 添加新文章
  * 
@@ -89,17 +91,25 @@ const createArticle = function(option) {
  * 
  * @param { object } option
  * option {
- *   @param { object } where, or
- *   @param { number } offset, or
- *   @param { number } limit or
+ *   @param { number } user_id, or
+ *   @param { number } startTime, or
+ *   @param { number } endTime or
  * }
  * 
  * @returns
  * 
  */
 const findArticle = function(option) {
+  let query = {},time = {}; 
+  ;option.userId && Object.assign(query, { where: { user_id: +option.userId } });
+  ;option.pageSize && Object.assign(query, { limit: +option.pageSize });
+  ;(option.page && option.pageSize) && Object.assign(query, { offset: (+option.page - 1) * (+option.pageSize) });
+  ;option.userId && Object.assign(query, { where: { user_id: +option.userId } });
+  ;option.startTime && Object.assign(query, { where: { update_time: Object.assign(time, { [Op.gte]: +option.startTime }) } });
+  ;option.endTime && Object.assign(query, { where: { update_time: Object.assign(time, { [Op.lte]: +option.endTime }) } });
+
   return new Promise((resolve, reject) => {
-    Articles.findAndCountAll(option).then(result => {
+    Articles.findAndCountAll(query).then(result => {
       resolve({
         status: true,
         data: result

@@ -28,8 +28,9 @@ var env = createEnv('views', {
   noCache: true,
   autoescape: false,
   filters: {
-    hex: function (n) {
-      return '0x' + n.toString(16);
+    timeFormat: function (time) {
+      let date = new Date(time);
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     }
   }
 });
